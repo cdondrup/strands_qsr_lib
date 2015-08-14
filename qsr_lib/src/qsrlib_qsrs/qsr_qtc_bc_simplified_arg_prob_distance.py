@@ -81,7 +81,12 @@ class QSR_QTC_BC_Simplified_Arg_Prob_Distance(QSR_Arg_Prob_Relations_Distance, Q
                         quantisation_factor = input_data.trace[0].objects[o1_name].kwargs["distance_threshold"]
                 except:
                     pass
-#                distances = np.array([])
+
+                if not isinstance(distance_threshold, str):
+                    raise Exception(self.qsr_keys+ " only accepts a string naming the abstract distance relation used as a threshold.")
+                if not distance_threshold in self.all_possible_relations:
+                    raise Exception(self.qsr_keys+ ": distance threshold: "+distance_threshold+" is not in: "+(','.join(x for x in self.all_possible_relations)))
+
                 qtc_sequence = np.array([], dtype=int)
                 for t0, t1 in zip(timestamps, timestamps[1:]):
                     timestamp = t1
