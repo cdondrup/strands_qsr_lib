@@ -116,8 +116,9 @@ class QSR_QTC_BC_Simplified_Arg_Prob_Distance(QSR_Arg_Prob_Relations_Distance, Q
                     try:
                         dist = distances[o1_name+'_'+o2_name].append(self._compute_distance(input_data.trace[t1].objects.values(), qtc_sequence[-1]))
                     except KeyError:
-                        dist = distances[o2_name+'_'+o1_name].append(self._compute_distance(input_data.trace[t1].objects.values(), qtc_sequence[-1]))
+                        pass # If this fails we already have distance values for the opposite combination of objects
 
+                # Find which combinations of objects has distance values and use it for the opposite combination as well.
                 try:
                     dist = distances[o2_name+'_'+o1_name]
                 except KeyError:
