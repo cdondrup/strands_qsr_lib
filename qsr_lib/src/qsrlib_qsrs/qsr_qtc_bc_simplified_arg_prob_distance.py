@@ -27,9 +27,8 @@ class QSR_QTC_BC_Simplified_Arg_Prob_Distance(QSR_Arg_Prob_Relations_Distance, Q
         # Depends on order of super classes in class header.
         super(QSR_QTC_BC_Simplified_Arg_Prob_Distance, self).__init__()
         self.qtc_type = "bc"
-        self.qsr_type = "qtc_bc_simplified_arg_prob_distance"  # must be the same that goes in the QSR_Lib.__const_qsrs_available
         self.all_possible_relations = self.return_all_possible_state_combinations()[0]
-        self.qsr_keys = "qtcbcs_argprobd"
+        self._unique_id = "qtcbcs_argprobd"
         self.prev_dist = ''
 
     def make(self, *args, **kwargs):
@@ -41,7 +40,7 @@ class QSR_QTC_BC_Simplified_Arg_Prob_Distance(QSR_Arg_Prob_Relations_Distance, Q
         :return: World_QSR_Trace
         """
         input_data = kwargs["input_data"]
-        ret = World_QSR_Trace(qsr_type=self.qsr_type)
+        ret = World_QSR_Trace(qsr_type=self._unique_id)
         timestamps = input_data.get_sorted_timestamps()
 
         parameters = {
@@ -83,9 +82,9 @@ class QSR_QTC_BC_Simplified_Arg_Prob_Distance(QSR_Arg_Prob_Relations_Distance, Q
                     pass
 
                 if not isinstance(distance_threshold, str):
-                    raise Exception(self.qsr_keys+ " only accepts a string naming the abstract distance relation used as a threshold.")
+                    raise Exception(self._unique_id+ " only accepts a string naming the abstract distance relation used as a threshold.")
                 if not distance_threshold in self.all_possible_relations:
-                    raise Exception(self.qsr_keys+ ": distance threshold: "+distance_threshold+" is not in: "+(','.join(x for x in self.all_possible_relations)))
+                    raise Exception(self._unique_id+ ": distance threshold: "+distance_threshold+" is not in: "+(','.join(x for x in self.all_possible_relations)))
 
                 qtc_sequence = np.array([], dtype=int)
                 for t0, t1 in zip(timestamps, timestamps[1:]):
