@@ -55,7 +55,7 @@ class QSR_Abstractclass(object):
     def get_qsrs(self, **kwargs):
         world_trace, timestamps = self._set_input_world_trace(req_kwargs=kwargs)
         qsr_params = self._process_qsr_parameters_from_request_parameters(kwargs)
-        world_qsr_trace = self.make_world_qsr_trace(world_trace, timestamps, qsr_params)
+        world_qsr_trace = self.make_world_qsr_trace(world_trace, timestamps, qsr_params, **kwargs)
         world_qsr_trace = self._postprocess_world_qsr_trace(world_qsr_trace, world_trace, timestamps, kwargs, qsr_params)
         return world_qsr_trace
 
@@ -111,7 +111,7 @@ class QSR_Abstractclass(object):
                     qsrs_for_ret.append(p)
             else:
                 raise TypeError("Elements of qsrs_for must be strings and/or tuples")
-        qsrs_for_ret = self.custom_checks_for_qsrs_for(qsrs_for_ret)
+#        qsrs_for_ret = self.custom_checks_for_qsrs_for(qsrs_for_ret)
         return qsrs_for_ret
 
     def _process_qsr_parameters_from_request_parameters(self, req_params, **kwargs):
