@@ -228,6 +228,9 @@ class HMMAbstractclass():
                     hmm.sampleSingle(int(kwargs["max_length"]))
                 )
             )
+
+        trans_trained, emi, start = hmm.asMatrices()
+        np.savetxt("/home/cdondrup/hmm2.trans", np.array(trans_trained))
         return self._symbol_to_qsr(ret)
 
 
